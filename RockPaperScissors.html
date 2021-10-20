@@ -9,76 +9,122 @@
 <body>
     <script>
         
+        game();
+
+        function game()
+        {
+            let round = 0;
+            let numRounds = 5
+            let playerScore = 0;
+            let computerScore = 0;
+
+            while (round < numRounds)
+            {
+                let playerSelection = promptUser();
+                let computerSelection = computerPlay();
+
+                let win = playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
+
+                if (win == null)
+                {
+                    // do nothing
+                }
+                else if (win == true)
+                {
+                    round++;
+                    playerScore++;
+                    console.log(`You win! ${playerSelection} beats ${computerSelection}!`);
+                }
+                else if (win == false)
+                {
+                    round++;
+                    computerScore++;
+                    console.log(`You lose! ${computerSelection} beats ${playerSelection}!`);
+                }
+            }
+
+            console.log(`User score: ${playerScore}`);
+            console.log(`Computer score: ${computerScore}`);
+
+            let str = (playerScore > computerScore) ? "User wins!" : "Computer wins!";
+            console.log(str);
+        }
+
         function playRound(playerSelection, computerSelection)
         {
-            let compare;
+            let win = null;
             
             if (playerSelection == "ROCK")
             {
                 if (computerSelection == "SCISSORS")
                 {
-                    compare = "You win! Rock beats Scissors."
+                    win = true;
                 } 
                 else if (computerSelection == "PAPER")
                 {
-                    compare = "You lose! Paper beats rock."
+                    win = false;
                 }
                 else if (computerSelection == "ROCK")
                 {
-                    
+                    win = null;
                 }
             }
             if (playerSelection == "SCISSORS")
             {
                 if (computerSelection == "SCISSORS")
                 {
-
+                    win = null;
                 } 
                 else if (computerSelection == "PAPER")
                 {
-
+                    win = true;
                 }
                 else if (computerSelection == "ROCK")
                 {
-                    
+                    win = false;
                 }
             }
             if (playerSelection == "PAPER")
             {
                 if (computerSelection == "SCISSORS")
                 {
-
+                    win = false;
                 } 
                 else if (computerSelection == "PAPER")
                 {
-
+                    win = null;
                 }
                 else if (computerSelection == "ROCK")
                 {
-                    
+                    win = true;
                 }
             }
 
-            return compare;
+            return win;
         }
         
         function promptUser() 
         {
-            let userAnswer;
-            
+            let userAnswer = "";
+            let userUpperCase = "";
+
             do 
             {
                 userAnswer = prompt("Rock, Paper or Scissors?");
-                userAnswer = userAnswer.toUpperCase;
+                userUpperCase = userAnswer.toUpperCase();
 
-                if (userAnswer != "ROCK" || 
-                    userAnswer != "PAPER" || 
-                    userAnswer != "SCISSORS")
+                console.log(userUpperCase);
+
+                if (userUpperCase !== "ROCK" && 
+                    userUpperCase !== "SCISSORS" && 
+                    userUpperCase !== "PAPER")
                 {
                     alert("Please select valid answer.");
                 }
             }
-            while (userAnswer != "ROCK" || userAnswer != "PAPER" || userAnswer != "SCISSORS");
+            while (userUpperCase !== "ROCK" && 
+                    userUpperCase !== "SCISSORS" &&
+                    userUpperCase !== "PAPER");
         
             return userAnswer;
         }
@@ -90,20 +136,19 @@
 
             if (num == 1)
             {
-                computerAnswer = "ROCK";
+                computerAnswer = "Rock";
             }
             else if (num == 2)
             {
-                computerAnswer = "PAPER";
+                computerAnswer = "Paper";
             }
             else if (num == 3)
             {
-                computerAnswer = "SCISSORS";
+                computerAnswer = "Scissors";
             }
 
             return computerAnswer;
         }
-
 
     </script>
 </body>
