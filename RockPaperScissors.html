@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<script>>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        function playRound(playerSelection, computerSelection)
+        {
+            let compare;
+            
+            if (playerSelection == "ROCK")
+            {
+                if (computerSelection == "SCISSORS")
+                {
+                    compare = "You win! Rock beats Scissors."
+                } 
+                else if (computerSelection == "PAPER")
+                {
+                    compare = "You lose! Paper beats rock."
+                }
+                else if (computerSelection == "ROCK")
+                {
+                    
+                }
+            }
+            if (playerSelection == "SCISSORS")
+            {
+                if (computerSelection == "SCISSORS")
+                {
+
+                } 
+                else if (computerSelection == "PAPER")
+                {
+
+                }
+                else if (computerSelection == "ROCK")
+                {
+                    
+                }
+            }
+            if (playerSelection == "PAPER")
+            {
+                if (computerSelection == "SCISSORS")
+                {
+
+                } 
+                else if (computerSelection == "PAPER")
+                {
+
+                }
+                else if (computerSelection == "ROCK")
+                {
+                    
+                }
+            }
+
+            return compare;
+        }
+        
+        function promptUser() 
+        {
+            let userAnswer;
+            
+            do 
+            {
+                userAnswer = prompt("Rock, Paper or Scissors?");
+                userAnswer = userAnswer.toUpperCase;
+
+                if (userAnswer != "ROCK" || 
+                    userAnswer != "PAPER" || 
+                    userAnswer != "SCISSORS")
+                {
+                    alert("Please select valid answer.");
+                }
+            }
+            while (userAnswer != "ROCK" || userAnswer != "PAPER" || userAnswer != "SCISSORS");
+        
+            return userAnswer;
+        }
+
+        function computerPlay() 
+        {
+            let computerAnswer;
+            let num = Math.floor(Math.random()*3) + 1;
+
+            if (num == 1)
+            {
+                computerAnswer = "ROCK";
+            }
+            else if (num == 2)
+            {
+                computerAnswer = "PAPER";
+            }
+            else if (num == 3)
+            {
+                computerAnswer = "SCISSORS";
+            }
+
+            return computerAnswer;
+        }
+
+
+    </script>
+</body>
+</html>
