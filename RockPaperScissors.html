@@ -7,126 +7,154 @@
     <title>Document</title>
 </head>
 <body>
+
+    <h1>Rock, Paper, Scissors</h1>
+
+    <p>Play a game. Pick a lane. Punch your way to fame.</p>
+
+    <h2 id = 'winner'></h2>
+
+    <div>
+        <h2>Scoreboard</h2>
+        <h3 id = 'playerScore'>Player: </h3>
+        <h3 id = 'computerScore'>Computer: </h3>
+    </div>
+
+    <div>
+        <button class = 'btn' id = 'rock'>Rock</button>
+        <button class = 'btn' id = 'paper'>Paper</button>
+        <button class = 'btn' id = 'scissors'>Scissors</button>
+    </div>
+
     <script>
         
-        game();
+        let player = '';
+        let computer = '';
+        let playerScore = 0;
+        let computerScore = 0;
 
-        function game()
+        let rock = document.querySelector('#rock');
+        rock.addEventListener('click', () => {
+            
+            player = 'Rock';
+            computer = computerPlay();
+
+            duel(player, computer);
+
+            checkWinner(5);
+        })
+
+        let paper = document.querySelector('#paper');
+        paper.addEventListener('click', () => {
+            
+            player = 'Paper';
+            computer = computerPlay();
+
+            duel(player, computer);
+
+            checkWinner(5);
+        })
+
+        let scissors = document.querySelector('#scissors');
+        scissors.addEventListener('click', () => {
+            
+            player = 'Scissors';
+            computer = computerPlay();
+
+            duel(player, computer);
+
+            checkWinner(5);
+        })
+
+        function checkWinner(end)
         {
-            let round = 0;
-            let numRounds = 5
-            let playerScore = 0;
-            let computerScore = 0;
-
-            while (round < numRounds)
+            if (playerScore == end)
             {
-                let playerSelection = promptUser();
-                let computerSelection = computerPlay();
-
-                let win = playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
-
-                if (win == null)
-                {
-                    // do nothing
-                }
-                else if (win == true)
-                {
-                    round++;
-                    playerScore++;
-                    console.log(`You win! ${playerSelection} beats ${computerSelection}!`);
-                }
-                else if (win == false)
-                {
-                    round++;
-                    computerScore++;
-                    console.log(`You lose! ${computerSelection} beats ${playerSelection}!`);
-                }
+                let winner = document.querySelector('#winner');
+                winner.textContent = "Player wins the game!";    
             }
+            if (computerScore == end)
+            {
+                let winner = document.querySelector('#winner');
+                winner.textContent = "Computer wins the game!";
+            }
+        }
 
-            console.log(`User score: ${playerScore}`);
-            console.log(`Computer score: ${computerScore}`);
+        function duel(player, computer)
+        {
+            let win = playRound(player, computer);
 
-            let str = (playerScore > computerScore) ? "User wins!" : "Computer wins!";
-            console.log(str);
+            if (win == true) 
+            {
+                playerScore++;
+                document.getElementById('playerScore').innerHTML = "Player: " + playerScore;
+                document.getElementById('winner').textContent = `Player wins the round! ${player} beats ${computer}!`;
+            }
+            else if (win == false)
+            {
+                computerScore++;
+                document.getElementById('computerScore').innerHTML = "Computer: " + computerScore;
+                document.getElementById('winner').textContent = `Computer wins the round! ${computer} beats ${player}!`;
+            }
+            else if (win === null)
+            {
+                document.getElementById('winner').textContent = `Draw!`;
+            }
         }
 
         function playRound(playerSelection, computerSelection)
         {
             let win = null;
+            let playerUpper = playerSelection.toUpperCase();
+            let computerUpper = computerSelection.toUpperCase();
             
-            if (playerSelection == "ROCK")
+            if (playerUpper == "ROCK")
             {
-                if (computerSelection == "SCISSORS")
+                if (computerUpper == "SCISSORS")
                 {
                     win = true;
                 } 
-                else if (computerSelection == "PAPER")
+                else if (computerUpper == "PAPER")
                 {
                     win = false;
                 }
-                else if (computerSelection == "ROCK")
+                else if (computerUpper == "ROCK")
                 {
                     win = null;
                 }
             }
-            if (playerSelection == "SCISSORS")
+            else if (playerUpper == "SCISSORS")
             {
-                if (computerSelection == "SCISSORS")
+                if (computerUpper == "SCISSORS")
                 {
                     win = null;
                 } 
-                else if (computerSelection == "PAPER")
+                else if (computerUpper == "PAPER")
                 {
                     win = true;
                 }
-                else if (computerSelection == "ROCK")
+                else if (computerUpper == "ROCK")
                 {
                     win = false;
                 }
             }
-            if (playerSelection == "PAPER")
+            else if (playerUpper == "PAPER")
             {
-                if (computerSelection == "SCISSORS")
+                if (computerUpper == "SCISSORS")
                 {
                     win = false;
                 } 
-                else if (computerSelection == "PAPER")
+                else if (computerUpper == "PAPER")
                 {
                     win = null;
                 }
-                else if (computerSelection == "ROCK")
+                else if (computerUpper == "ROCK")
                 {
                     win = true;
                 }
             }
 
             return win;
-        }
-        
-        function promptUser() 
-        {
-            let userAnswer = "";
-            let userUpperCase = "";
-
-            do 
-            {
-                userAnswer = prompt("Rock, Paper or Scissors?");
-                userUpperCase = userAnswer.toUpperCase();
-
-                console.log(userUpperCase);
-
-                if (userUpperCase !== "ROCK" && 
-                    userUpperCase !== "SCISSORS" && 
-                    userUpperCase !== "PAPER")
-                {
-                    alert("Please select valid answer.");
-                }
-            }
-            while (userUpperCase !== "ROCK" && 
-                    userUpperCase !== "SCISSORS" &&
-                    userUpperCase !== "PAPER");
-        
-            return userAnswer;
         }
 
         function computerPlay() 
